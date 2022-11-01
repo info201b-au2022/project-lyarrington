@@ -8,8 +8,8 @@ as follows:
 |Report | Brief Description|
 |---------------| -----------------|
 |[Project Proposal (FIX ME!)](./xxx) | A brief description of your P1:Project Proposal
-|[Exploratory Data Analysis](./xxx) | A brief description of your exploratory data analyis report
-|[Interactive Vizualizaiton](./xxx) | A brief description of your final report. 
+|[Exploratory Data Analysis](./xxx) | A brief description of your exploratory data analysis report
+|[Interactive Visualization](./xxx) | A brief description of your final report. 
 
 
 ## DEVELOPER Note 0
@@ -40,9 +40,8 @@ Where:
 ## DEVELOPER Note 2: IMPORTANT: Setting up your webserver 
 1. You must make your repository *public*. To make it public: Go to your GitHub repository > Settings (top-right) > Change visibility (Danger Zone) > Make Public
 1. You must set the pages source to /docs. To do so: Got your GitHub repository > Pages (bottom-left) > Select "/docs" from the pulldown menu
-1. If you run into trouble, pleaes ask your TA or post on Teams - as usual, it is straigthforward once you know how but can be tricky to figure out the first time.
+1. If you run into trouble, please ask your TA or post on Teams - as usual, it is straightforward once you know how but can be tricky to figure out the first time.
 
 ## DEVELOPER Note 3:  Clear and Concise Documentation
-* Please remember your audience (prospective employers, open source colleagues, TAs, Instructors). Therefore, 
-aim for clarity and conciseness.
+* Please remember your audience (prospective employers, open source colleagues, TAs, Instructors). Therefore, aim for clarity and conciseness.
 * When done, be sure to delete these NOTE sections and the example CSV file (which are intended for you, of course, not your audience!)
