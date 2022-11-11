@@ -2,23 +2,50 @@
 
 In our project, we use the following data files and Application Programming Interfaces:
 
-## Data files (TODO: Update/delete for your PROJECT)
-|Data File Name | Brief Description|
-|---------------| -----------------|
-|[example.cvs](./example.csv) | This file contains temperature data. (See report for details.)
-|[another-file](./filename2.csv) | Description ... 
+## Data files
 
-## Application Programming Interfaces (API) (TODO: Update/delete for your PROJECT)
+|Data File Name|Brief Description|
+|---|---|
+Shenyang_PM2.5_2013_YTD.csv|Shenyang PM2.5 Data from Year 2013|
+Shenyang_PM2.5_2014_YTD.csv|Shenyang PM2.5 Data from Year 2014|
+Shenyang_PM2.5_2015_YTD.csv|Shenyang PM2.5 Data from Year 2015|
+Shenyang_PM2.5_2016_YTD.csv|Shenyang PM2.5 Data from Year 2016|
+Shenyang_PM2.5_2017_YTD.csv|Shenyang PM2.5 Data from Year 2017|
+Shenyang_PM2.5_2018_YTD.csv|Shenyang PM2.5 Data from Year 2018|
+Shenyang_PM2.5_2019_YTD.csv|Shenyang PM2.5 Data from Year 2019|
+Shenyang_PM2.5_2020_YTD.csv|Shenyang PM2.5 Data from Year 2020|
+Shenyang_PM2.5_2021_YTD.csv|Shenyang PM2.5 Data from Year 2021|
+Beijing_PM2.5_2013_YTD.csv|Beijing PM2.5 Data from Year 2013|
+Beijing_PM2.5_2014_YTD.csv|Beijing PM2.5 Data from Year 2014|
+Beijing_PM2.5_2015_YTD.csv|Beijing PM2.5 Data from Year 2015|
+Beijing_PM2.5_2016_YTD.csv|Beijing PM2.5 Data from Year 2016|
+Beijing_PM2.5_2017_YTD.csv|Beijing PM2.5 Data from Year 2017|
+Beijing_PM2.5_2018_YTD.csv|Beijing PM2.5 Data from Year 2018|
+Beijing_PM2.5_2019_YTD.csv|Beijing PM2.5 Data from Year 2019|
+Beijing_PM2.5_2020_YTD.csv|Beijing PM2.5 Data from Year 2020|
+Beijing_PM2.5_2021_YTD.csv|Beijing PM2.5 Data from Year 2021|
+Guangzhou_PM2.5_2013_YTD.csv|Guangzhou PM2.5 Data from Year 2013|
+Guangzhou_PM2.5_2014_YTD.csv|Guangzhou PM2.5 Data from Year 2014|
+Guangzhou_PM2.5_2015_YTD.csv|Guangzhou PM2.5 Data from Year 2015|
+Guangzhou_PM2.5_2016_YTD.csv|Guangzhou PM2.5 Data from Year 2016|
+Guangzhou_PM2.5_2017_YTD.csv|Guangzhou PM2.5 Data from Year 2017|
+Guangzhou_PM2.5_2018_YTD.csv|Guangzhou PM2.5 Data from Year 2018|
+Guangzhou_PM2.5_2019_YTD.csv|Guangzhou PM2.5 Data from Year 2019|
+Guangzhou_PM2.5_2020_YTD.csv|Guangzhou PM2.5 Data from Year 2020|
+Guangzhou_PM2.5_2021_YTD.csv|Guangzhou PM2.5 Data from Year 2021|
+Shanghai_PM2.5_2013_YTD.csv|Shanghai PM2.5 Data from Year 2013|
+Shanghai_PM2.5_2014_YTD.csv|Shanghai PM2.5 Data from Year 2014|
+Shanghai_PM2.5_2015_YTD.csv|Shanghai PM2.5 Data from Year 2015|
+Shanghai_PM2.5_2016_YTD.csv|Shanghai PM2.5 Data from Year 2016|
+Shanghai_PM2.5_2017_YTD.csv|Shanghai PM2.5 Data from Year 2017|
+Shanghai_PM2.5_2018_YTD.csv|Shanghai PM2.5 Data from Year 2018|
+Shanghai_PM2.5_2019_YTD.csv|Shanghai PM2.5 Data from Year 2019|
+Shanghai_PM2.5_2020_YTD.csv|Shanghai PM2.5 Data from Year 2020|
+Shanghai_PM2.5_2021_YTD.csv|Shanghai PM2.5 Data from Year 2021|
 
-* **New York Times Books API**. The _New York Times_ provides data for Best
-Sellers lists and the books that have been reviewed in the New York Times. An overview of the API that we use in our project is available here: [Books API](https://developer.nytimes.com/docs/books-product/1/overview). For more about developing apps with New York Times data see: [NYTimes Developers](https://developer.nytimes.com/).
+## Credits
 
-# Developer notes: About the `/data` Directory (TODO: Read and delete this section)
-
-* Use the `/data` directory to store any data that you using in your project (for example, CSV files)
-* Edit this `README.md` file and summarize your data files
-* If you are using APIs to access data, summarize them, providing specific information
-* See examples above.
-* Please remember your audience (prospective employers, open source colleagues, TAs, Instructors). Therefore, 
-aim for clarity and conciseness.
-* When done, be sure to delete these NOTE sections and the example CSV file (which are intended for you, of course, not your audience!)
+AirNow.gov, U.S. EPA. (n.d.). US embassies and consulates. US Embassies and Consulates | AirNow.gov. Retrieved October 31, 2022, from https://www.airnow.gov/international/us-embassies-and-consulates/#China$Beijing 
+AirNow.gov, U.S. EPA. (n.d.). US embassies and consulates. US Embassies and Consulates | AirNow.gov. Retrieved October 31, 2022, from https://www.airnow.gov/international/us-embassies-and-consulates/#China$Guangzhou 
+AirNow.gov, U.S. EPA. (n.d.). US embassies and consulates. US Embassies and Consulates | AirNow.gov. Retrieved October 31, 2022, from https://www.airnow.gov/international/us-embassies-and-consulates/#China$Shanghai 
+AirNow.gov, U.S. EPA. (n.d.). US embassies and consulates. US Embassies and Consulates | AirNow.gov. Retrieved October 31, 2022, from https://www.airnow.gov/international/us-embassies-and-consulates/#China$Shenyang
