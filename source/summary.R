@@ -8,11 +8,16 @@ library(dplyr)
 #
 # Can someone check if the read.csv line works on their computer. I don't think the path is right
 #
+# ^^ I have a temporary fix for this, seems like the code no longer works once u
+# pull it from github, pls make sure the run the code below:\
+setwd("C:/Users/simon/Documents/info201/assignments/project-lyarrington/")
+# adjust it to whatever your local path is to your project and that the 
+# the data below should load normally.
 
-Shanghai <- read.csv("~/Documents/info201/project/project-lyarrington/data/Shanghai_PM2.5_2013-2021.csv")
-Shenyang <- read.csv("~/Documents/info201/project/project-lyarrington/data/Shenyang_PM2.5_2013-2021.csv")
-Guangzhou <- read.csv("~/Documents/info201/project/project-lyarrington/data/Guangzhou_PM2.5_2013-2021.csv")
-Beijing <- read.csv("~/Documents/info201/project/project-lyarrington/data/Beijing_PM2.5_2013-2021.csv")
+Shanghai <- read.csv("data/Shanghai_PM2.5_2013-2021.csv")
+Shenyang <- read.csv("data/Shenyang_PM2.5_2013-2021.csv")
+Guangzhou <- read.csv("data/Guangzhou_PM2.5_2013-2021.csv")
+Beijing <- read.csv("data/Beijing_PM2.5_2013-2021.csv")
 
 my_df <- full_join(Shanghai, Shenyang)
 my_df <- full_join(my_df, Guangzhou)
