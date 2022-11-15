@@ -14,6 +14,7 @@ guangzhou <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project
 shanghai <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shanghai_PM2.5_2013-2021.csv")
 shenyang <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shenyang_PM2.5_2013-2021.csv")
 
+<<<<<<< HEAD
 beijing <- beijing[!grepl("Site", beijing$Site),]
 beijing <- beijing[!grepl("-999", beijing$AQI),]
 beijing <- transform(beijing, AQI = as.numeric(AQI))
@@ -92,3 +93,16 @@ ggplot2.scatterplot(data = differences, main = "Average AQI Differences Each Yea
                     backgroundColor = "white",
                     groupColors = c('#00AFBB','#E7B800', '#FC4E07'),
                     setColorByGroupName = TRUE)
+=======
+beijing <- beijing[!grepl("-999", beijing$AQI),]
+beijing <- beijing[!grepl("Site", beijing$Site),]
+beijing <- transform(beijing, AQI = as.numeric(AQI))
+beijing <- transform(beijing, Year = as.numeric(Year))
+
+
+beijing_avg_2013 <- beijing %>%
+  select(Year, AQI) %>%
+  drop_na() %>%
+  filter(Year == 2013) %>%
+  sum(beijing$AQI) / nrow(beijing)
+>>>>>>> 7c86ac12b63df255417f7f813caaac06dd54c2ea
