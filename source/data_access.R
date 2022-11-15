@@ -1,6 +1,7 @@
 library(readr)
 
 # pls make sure to run all of this when loading data
+setwd("C:/Users/simon/Documents/info201/assignments/project-lyarrington/")
 Shanghai <- read.csv("data/Shanghai_PM2.5_2013-2021.csv")
 Shanghai <- subset(Shanghai, Site != 'Site')
 Shenyang <- read.csv("data/Shenyang_PM2.5_2013-2021.csv")
