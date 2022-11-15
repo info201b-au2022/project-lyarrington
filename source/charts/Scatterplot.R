@@ -8,11 +8,14 @@ shanghai <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-
 shenyang <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shenyang_PM2.5_2013-2021.csv")
 View(beijing)
 
-beijing <- transform(beijing, AQI = as.numeric(AQI))
 beijing <- beijing[!grepl("-999", beijing$AQI),]
+beijing <- beijing[!grepl("Site", beijing$Site),]
+beijing <- transform(beijing, AQI = as.numeric(AQI))
+beijing <- transform(beijing, Year = as.numeric(Year))
+
 
 beijing_avg_2013 <- beijing %>%
   select(Year, AQI) %>%
   drop_na() %>%
-  filter(Year == 2013, FUN = TRUE) %>%
+  filter(Year == 2013) %>%
   sum(beijing$AQI) / nrow(beijing)
