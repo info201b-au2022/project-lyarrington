@@ -69,12 +69,11 @@ Guangzhou <- head(Guangzhou, -1)
 Guangzhou$Site <- "Guangzhou"
 
 
-
 my_df <- full_join(Shanghai, Shenyang)
 my_df <- full_join(my_df, Guangzhou)
 my_df <- full_join(my_df, Beijing)
 
-# Removes rows without any information
+
 ggplot(my_df, 
        aes (x = Year,
             y = AQI,
@@ -84,4 +83,5 @@ ggplot(my_df,
   theme_minimal() +
   ggtitle("Average Annual AQI in Each City") +
   xlab("Year") +
-  ylab("Air Quality Index")
+  ylab("Air Quality Index") +
+  scale_x_continuous(breaks = seq(2013, 2022, by = 1))
