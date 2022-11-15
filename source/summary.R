@@ -5,14 +5,10 @@ source(data_access.R)
 
 library(dplyr)
 
-#
-# Can someone check if the read.csv line works on their computer. I don't think the path is right
-#
-
-Shanghai <- read.csv("~/Documents/info201/project/project-lyarrington/data/Shanghai_PM2.5_2013-2021.csv")
-Shenyang <- read.csv("~/Documents/info201/project/project-lyarrington/data/Shenyang_PM2.5_2013-2021.csv")
-Guangzhou <- read.csv("~/Documents/info201/project/project-lyarrington/data/Guangzhou_PM2.5_2013-2021.csv")
-Beijing <- read.csv("~/Documents/info201/project/project-lyarrington/data/Beijing_PM2.5_2013-2021.csv")
+Shanghai <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shanghai_PM2.5_2013-2021.csv")
+Shenyang <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shenyang_PM2.5_2013-2021.csv")
+Guangzhou <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Guangzhou_PM2.5_2013-2021.csv")
+Beijing <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Beijing_PM2.5_2013-2021.csv")
 
 my_df <- full_join(Shanghai, Shenyang)
 my_df <- full_join(my_df, Guangzhou)
@@ -21,6 +17,12 @@ my_df <- full_join(my_df, Beijing)
 # Removes rows without any information
 my_df <-my_df[!grepl("Site", my_df$Site),]
 
+# Removes rows where the AQI is -999 because this value is invalid
+my_df <- my_df[!grepl("-999", my_df$AQI),]
+
+# Transforms the values at AQI and Raw.Conc. to be integers not strings
+my_df <- transform(my_df, AQI = as.numeric(AQI))
+my_df <- transform(my_df, Raw.Conc. = as.numeric(Raw.Conc.))
 
 summary_info <- list()
 summary_info$num_observations <- nrow(my_df)
