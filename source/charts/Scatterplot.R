@@ -1,108 +1,94 @@
 # This chart displays the difference each year in average daily AQI in each of the four
 # cities.
-
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-install.packages("devtools")
+library(data.table)
 library(devtools)
 install_github("kassambara/easyGgplot2")
 library(easyGgplot2)
 
-beijing <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Beijing_PM2.5_2013-2021.csv")
-guangzhou <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Guangzhou_PM2.5_2013-2021.csv")
-shanghai <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shanghai_PM2.5_2013-2021.csv")
-shenyang <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shenyang_PM2.5_2013-2021.csv")
+get_scatterplot <- function(){
+  file_path <- list.files(path = "data/",pattern = "Shanghai*", full.names = TRUE)
+  df_combine <- lapply(file_path, fread, sep=",")
+  Shanghai <- rbindlist(df_combine)
+  file_path <- list.files(path = "data/",pattern = "Beijing*", full.names = TRUE)
+  df_combine <- lapply(file_path, fread, sep=",")
+  Beijing <- rbindlist(df_combine)
+  file_path <- list.files(path = "data/",pattern = "Shenyang*", full.names = TRUE)
+  df_combine <- lapply(file_path, fread, sep=",")
+  Shenyang <- rbindlist(df_combine)
+  file_path <- list.files(path = "data/",pattern = "Guangzhou*", full.names = TRUE)
+  df_combine <- lapply(file_path, fread, sep=",")
+  Guangzhou <- rbindlist(df_combine)
+  
+  Beijing <- Beijing[!grepl("Site", Beijing$Site),]
+  Beijing <- Beijing[!grepl("-999", Beijing$AQI),]
+  Beijing <- transform(Beijing, AQI = as.numeric(AQI))
+  Beijing <- transform(Beijing, Year = as.numeric(Year))
+  Beijing <- Beijing %>% 
+    select(Site, Year, AQI) %>% 
+    drop_na()
+  Beijing <- aggregate(Beijing$AQI, list(Beijing$Year), FUN = mean)
+  colnames(Beijing)[1] <- "Year"
+  colnames(Beijing)[2] <- "AQI" 
+  Beijing <- head(Beijing, -1)
+  Beijing$Site <- "Beijing"
+  Beijing <- Beijing %>%
+    mutate(difference = AQI - lag(AQI))
 
-<<<<<<< HEAD
-beijing <- beijing[!grepl("Site", beijing$Site),]
-beijing <- beijing[!grepl("-999", beijing$AQI),]
-beijing <- transform(beijing, AQI = as.numeric(AQI))
-beijing <- transform(beijing, Year = as.numeric(Year))
+  Guangzhou <- Guangzhou[!grepl("Site", Guangzhou$Site),]
+  Guangzhou <- Guangzhou[!grepl("-999", Guangzhou$AQI),]
+  Guangzhou <- transform(Guangzhou, AQI = as.numeric(AQI))
+  Guangzhou <- transform(Guangzhou, Year = as.numeric(Year))
+  Guangzhou <- Guangzhou %>% 
+    select(Site, Year, AQI) %>% 
+    drop_na()
+  Guangzhou <- aggregate(Guangzhou$AQI, list(Guangzhou$Year), FUN = mean)
+  colnames(Guangzhou)[1] <- "Year"
+  colnames(Guangzhou)[2] <- "AQI" 
+  Guangzhou <- head(Guangzhou, -1)
+  Guangzhou$Site <- "Guangzhou"
+  Guangzhou <- Guangzhou %>%
+    mutate(difference = AQI - lag(AQI))
 
-beijing <- beijing %>% 
-  select(Site, Year, AQI) %>% 
-  drop_na()
-beijing <- aggregate(beijing$AQI, list(beijing$Year), FUN = mean)
-colnames(beijing)[1] <- "Year"
-colnames(beijing)[2] <- "AQI" 
-beijing <- head(beijing, -1)
-beijing$Site <- "beijing"
+  Shanghai <- Shanghai[!grepl("Site", Shanghai$Site),]
+  Shanghai <- Shanghai[!grepl("-999", Shanghai$AQI),]
+  Shanghai <- transform(Shanghai, AQI = as.numeric(AQI))
+  Shanghai <- transform(Shanghai, Year = as.numeric(Year))
+  Shanghai <- Shanghai %>% 
+    select(Site, Year, AQI) %>% 
+    drop_na()
+  Shanghai <- aggregate(Shanghai$AQI, list(Shanghai$Year), FUN = mean)
+  colnames(Shanghai)[1] <- "Year"
+  colnames(Shanghai)[2] <- "AQI" 
+  Shanghai <- head(Shanghai, -1)
+  Shanghai$Site <- "Shanghai"
+  Shanghai <- Shanghai %>%
+    mutate(difference = AQI - lag(AQI))
 
-beijing <- beijing %>%
-  mutate(difference = AQI - lag(AQI))
+  Shenyang <- Shenyang[!grepl("Site", Shenyang$Site),]
+  Shenyang <- Shenyang[!grepl("-999", Shenyang$AQI),]
+  Shenyang <- transform(Shenyang, AQI = as.numeric(AQI))
+  Shenyang <- transform(Shenyang, Year = as.numeric(Year))
+  Shenyang <- Shenyang %>% 
+    select(Site, Year, AQI) %>% 
+    drop_na()
+  Shenyang <- aggregate(Shenyang$AQI, list(Shenyang$Year), FUN = mean)
+  colnames(Shenyang)[1] <- "Year"
+  colnames(Shenyang)[2] <- "AQI" 
+  Shenyang <- head(Shenyang, -1)
+  Shenyang$Site <- "Shenyang"
+  Shenyang <- Shenyang %>%
+    mutate(difference = AQI - lag(AQI))
 
-guangzhou <- guangzhou[!grepl("Site", guangzhou$Site),]
-guangzhou <- guangzhou[!grepl("-999", guangzhou$AQI),]
-guangzhou <- transform(guangzhou, AQI = as.numeric(AQI))
-guangzhou <- transform(guangzhou, Year = as.numeric(Year))
-
-guangzhou <- guangzhou %>% 
-  select(Site, Year, AQI) %>% 
-  drop_na()
-guangzhou <- aggregate(guangzhou$AQI, list(guangzhou$Year), FUN = mean)
-colnames(guangzhou)[1] <- "Year"
-colnames(guangzhou)[2] <- "AQI" 
-guangzhou <- head(guangzhou, -1)
-guangzhou$Site <- "guangzhou"
-
-guangzhou <- guangzhou %>%
-  mutate(difference = AQI - lag(AQI))
-
-shanghai <- shanghai[!grepl("Site", shanghai$Site),]
-shanghai <- shanghai[!grepl("-999", shanghai$AQI),]
-shanghai <- transform(shanghai, AQI = as.numeric(AQI))
-shanghai <- transform(shanghai, Year = as.numeric(Year))
-
-shanghai <- shanghai %>% 
-  select(Site, Year, AQI) %>% 
-  drop_na()
-shanghai <- aggregate(shanghai$AQI, list(shanghai$Year), FUN = mean)
-colnames(shanghai)[1] <- "Year"
-colnames(shanghai)[2] <- "AQI" 
-shanghai <- head(shanghai, -1)
-shanghai$Site <- "shanghai"
-
-shanghai <- shanghai %>%
-  mutate(difference = AQI - lag(AQI))
-
-shenyang <- shenyang[!grepl("Site", shenyang$Site),]
-shenyang <- shenyang[!grepl("-999", shenyang$AQI),]
-shenyang <- transform(shenyang, AQI = as.numeric(AQI))
-shenyang <- transform(shenyang, Year = as.numeric(Year))
-
-shenyang <- shenyang %>% 
-  select(Site, Year, AQI) %>% 
-  drop_na()
-shenyang <- aggregate(shenyang$AQI, list(shenyang$Year), FUN = mean)
-colnames(shenyang)[1] <- "Year"
-colnames(shenyang)[2] <- "AQI" 
-shenyang <- head(shenyang, -1)
-shenyang$Site <- "shenyang"
-
-shenyang <- shenyang %>%
-  mutate(difference = AQI - lag(AQI))
-
-differences <- full_join(beijing, guangzhou)
-differences <- full_join(differences, shanghai)
-differences <- full_join(differences, shenyang)
-
-ggplot2.scatterplot(data = differences, main = "Average AQI Differences Each Year",
-                    xName = "Year",yName = "difference", 
-                    groupName = "Site", size=3,
-                    backgroundColor = "white",
-                    groupColors = c('#00AFBB','#E7B800', '#FC4E07'),
-                    setColorByGroupName = TRUE)
-=======
-beijing <- beijing[!grepl("-999", beijing$AQI),]
-beijing <- beijing[!grepl("Site", beijing$Site),]
-beijing <- transform(beijing, AQI = as.numeric(AQI))
-beijing <- transform(beijing, Year = as.numeric(Year))
-
-
-beijing_avg_2013 <- beijing %>%
-  select(Year, AQI) %>%
-  drop_na() %>%
-  filter(Year == 2013) %>%
-  sum(beijing$AQI) / nrow(beijing)
->>>>>>> 7c86ac12b63df255417f7f813caaac06dd54c2ea
+  differences <- full_join(Beijing, Guangzhou)
+  differences <- full_join(differences, Shanghai)
+  differences <- full_join(differences, Shenyang)
+  chart <- ggplot2.scatterplot(data = differences, main = "Average AQI Differences Each Year",
+                      xName = "Year",yName = "difference", 
+                      groupName = "Site", size=3,
+                      backgroundColor = "white",
+                      setColorByGroupName = TRUE)
+  return(chart)
+}
