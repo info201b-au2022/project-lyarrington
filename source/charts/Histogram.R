@@ -3,9 +3,9 @@ library(tidyr)
 library(ggplot2)
 
 Shanghai <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shanghai_PM2.5_2013-2021.csv")
+Beijing <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Beijing_PM2.5_2013-2021.csv")
 Shenyang <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Shenyang_PM2.5_2013-2021.csv")
 Guangzhou <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Guangzhou_PM2.5_2013-2021.csv")
-Beijing <- read.csv("https://raw.githubusercontent.com/info201b-au2022/project-lyarrington/main/data/Beijing_PM2.5_2013-2021.csv")
 
 
 Shanghai <- Shanghai[!grepl("Site", Shanghai$Site),]
@@ -24,19 +24,64 @@ Shanghai$Site <- "Shanghai"
 
 
 
+Beijing <- Beijing[!grepl("Site", Beijing$Site),]
+Beijing <- Beijing[!grepl("-999", Beijing$AQI),]
+Beijing <- transform(Beijing, AQI = as.numeric(AQI))
+Beijing <- transform(Beijing, Year = as.numeric(Year))
+
+Beijing <- Beijing %>% 
+  select(Site, Year, AQI) %>% 
+  drop_na()
+Beijing <- aggregate(Beijing$AQI, list(Beijing$Year), FUN = mean)
+colnames(Beijing)[1] <- "Year"
+colnames(Beijing)[2] <- "AQI" 
+Beijing <- head(Beijing, -1)
+Beijing$Site <- "Beijing"
+
+
+Shenyang <- Shenyang[!grepl("Site", Shenyang$Site),]
+Shenyang <- Shenyang[!grepl("-999", Shenyang$AQI),]
+Shenyang <- transform(Shenyang, AQI = as.numeric(AQI))
+Shenyang <- transform(Shenyang, Year = as.numeric(Year))
+
+Shenyang <- Shenyang %>% 
+  select(Site, Year, AQI) %>% 
+  drop_na()
+Shenyang <- aggregate(Shenyang$AQI, list(Shenyang$Year), FUN = mean)
+colnames(Shenyang)[1] <- "Year"
+colnames(Shenyang)[2] <- "AQI" 
+Shenyang <- head(Shenyang, -1)
+Shenyang$Site <- "Shenyang"
+
+
+Guangzhou <- Guangzhou[!grepl("Site", Guangzhou$Site),]
+Guangzhou <- Guangzhou[!grepl("-999", Guangzhou$AQI),]
+Guangzhou <- transform(Guangzhou, AQI = as.numeric(AQI))
+Guangzhou <- transform(Guangzhou, Year = as.numeric(Year))
+
+Guangzhou <- Guangzhou %>% 
+  select(Site, Year, AQI) %>% 
+  drop_na()
+Guangzhou <- aggregate(Guangzhou$AQI, list(Guangzhou$Year), FUN = mean)
+colnames(Guangzhou)[1] <- "Year"
+colnames(Guangzhou)[2] <- "AQI" 
+Guangzhou <- head(Guangzhou, -1)
+Guangzhou$Site <- "Guangzhou"
+
+
+
 my_df <- full_join(Shanghai, Shenyang)
 my_df <- full_join(my_df, Guangzhou)
 my_df <- full_join(my_df, Beijing)
 
 # Removes rows without any information
-my_df <- my_df[!grepl("Site", my_df$Site),]
-my_df <- my_df[!grepl("-999", my_df$AQI),]
-my_df <- transform(my_df, AQI = as.numeric(AQI))
-my_df <- transform(my_df, Raw.Conc. = as.numeric(Raw.Conc.))
-
-hist(Shanghai$Year)
-
-hist(Shanghai,
-     main = "Average Annual AQI in Each City",
-     xlab = "Year",
-     ylab = "Air Quality Index")
+ggplot(my_df, 
+       aes (x = Year,
+            y = AQI,
+            fill = Site)) +
+  geom_bar(stat = "identity",
+           position = "dodge") +
+  theme_minimal() +
+  ggtitle("Average Annual AQI in Each City") +
+  xlab("Year") +
+  ylab("Air Quality Index")
