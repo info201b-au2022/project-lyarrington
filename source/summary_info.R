@@ -6,7 +6,7 @@ library(tidyr)
 library(data.table)  
 
 #Load data
-file_path <- list.files(path = "data/",pattern = ".csv", full.names = TRUE)
+file_path <- list.files(path = "../data/",pattern = ".csv", full.names = TRUE)
 df_combine <- lapply(file_path, fread, sep=",")
 df <- rbindlist(df_combine)
 

@@ -5,16 +5,16 @@ library(ggplot2)
 library(data.table)
 
 get_simon_chart <- function(){
-  file_path <- list.files(path = "data/",pattern = "Shanghai*", full.names = TRUE)
+  file_path <- list.files(path = "../data/",pattern = "Shanghai*", full.names = TRUE)
   df_combine <- lapply(file_path, fread, sep=",")
   Shanghai <- rbindlist(df_combine)
-  file_path <- list.files(path = "data/",pattern = "Beijing*", full.names = TRUE)
+  file_path <- list.files(path = "../data/",pattern = "Beijing*", full.names = TRUE)
   df_combine <- lapply(file_path, fread, sep=",")
   Beijing <- rbindlist(df_combine)
-  file_path <- list.files(path = "data/",pattern = "Shenyang*", full.names = TRUE)
+  file_path <- list.files(path = "../data/",pattern = "Shenyang*", full.names = TRUE)
   df_combine <- lapply(file_path, fread, sep=",")
   Shenyang <- rbindlist(df_combine)
-  file_path <- list.files(path = "data/",pattern = "Guangzhou*", full.names = TRUE)
+  file_path <- list.files(path = "../data/",pattern = "Guangzhou*", full.names = TRUE)
   df_combine <- lapply(file_path, fread, sep=",")
   Guangzhou <- rbindlist(df_combine)
   Shanghai <- subset(Shanghai, Site != 'Site')
@@ -74,8 +74,7 @@ get_simon_chart <- function(){
                    main = "Perecentage of Time Each City Spent Under Each AQI Category",
                    xlab = "City",
                    col = c("dark green", "green", "yellow", "orange", "red"), cex.main = 0.8)
-  legend("topleft",
-         c("Healthy", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy"),
+  legend("topleft", c("Healthy", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy"),
          fill = c("dark green", "green", "yellow", "orange", "red"),
          cex = 0.45,
          inset = c(-0.4,0.05))
