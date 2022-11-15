@@ -1,3 +1,10 @@
+# This chart displays the Annual Average AQI for each city in China and reveals the overall 
+# decline in average AQI. The chart gives a good summary of the change in AQI in the four major 
+# Chinese cities. On average, Beijing and Shenyang have the highest average AQI while Guangzhou
+# has the lowest average AQI. 
+
+
+
 library(dplyr)
 library(tidyr)
 library(ggplot2)
