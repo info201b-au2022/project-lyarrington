@@ -27,3 +27,13 @@ summary_tab <- tabPanel(
 report_tab <- tabPanel(
     title = "Report"
 )
+
+ui <- navbarPage(
+    title = "China Air Quality Index",
+    intro_tab,
+    graph_1_tab,
+    graph_2_tab,
+    graph_3_tab,
+    summary_tab,
+    report_tab
+)
