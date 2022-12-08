@@ -10,6 +10,7 @@ successful. Our goal was to identify which industries would potentially pollute 
 1. How has air quality changed over the past decade in each city?
 2. What are the top industries of each of the four cities?
 3. Which industries contributed the most to polluting the air?
+
 To answer these questions, we first analyzed air pollution trends in these four cities. We used data collected by each city’s United States embassy over 
 the past decade. The results of this analysis were used along with information about each city’s top industries and manufacturing outputs to determine 
 which industries were most detrimental to the environment. Our findings revealed that the chemical industry contributed significantly more to air pollution
