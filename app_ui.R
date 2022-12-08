@@ -1,5 +1,6 @@
 library(shiny)
 library(plotly)
+source("AQI_Category_Chart.R")
 
 intro_tab <- tabPanel(
     title = "Introduction"
@@ -17,7 +18,7 @@ graph_2_tab <- tabPanel(
 
 graph_3_tab <- tabPanel(
     title = "Graph 3",
-#    plotlyOutput("graph_3")
+    plotlyOutput(plot_AQI_Category)
 )
 
 summary_tab <- tabPanel(

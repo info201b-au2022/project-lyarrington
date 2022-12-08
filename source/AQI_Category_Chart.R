@@ -75,10 +75,10 @@ Percent <- c(Shanghai, Shenyang, Beijing, Guangzhou)
   
 my_chart <- data.frame(City, Quality, Percent)
 
-ggplot(my_chart,
-  aes(y = Percent, x = City, fill = Quality)) +
-  geom_bar(position = "fill", stat = "identity") +
-  scale_fill_manual(values = c("dark green", "green", "yellow", "orange", "red"))
-
-
-
+plot_AQI_Category <- function() {
+  plot <- ggplot(my_chart,
+    aes(y = Percent, x = City, fill = Quality)) +
+    geom_bar(position = "fill", stat = "identity") +
+    scale_fill_manual(values = c("dark green", "green", "yellow", "orange", "red"))
+  return(plot)
+}
