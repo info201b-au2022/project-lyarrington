@@ -128,10 +128,10 @@ source("../source/charts/Histogram.R")
 plot(get_histogram())
 ```
 <br>
-This chart displays the Annual Average AQI for each city in China and reveals the overall 
-decline in average AQI. The chart gives a good summary of the change in AQI in the four major 
+This chart displays the Annual Average AQI for each city in China and reveals the overall
+decline in average AQI. The chart gives a good summary of the change in AQI in the four major
 Chinese cities. On average, Beijing and Shenyang have the highest average AQI while Guangzhou
-has the lowest average AQI. 
+has the lowest average AQI.
 
 \
 
@@ -146,7 +146,7 @@ This chart shows the general trend of how fast China’s air quality is improvin
 
 ```{r simon_chart,results='hide',echo=FALSE}
 source("../source/charts/Simons Chart.R")
-get_simon_chart()
+get_simon_chart(2013, 2021)
 ```
 <br>
 The barplot plots the distribution of time of each city in that is categorized under each AQI category. The barplot is used to graphically demonstrate the ratio of time each city experienced with “unhealthy”or “healthy” air. On average, each city spends more than 50% of the time from 2013-2021 with what is considered hazardous air.
