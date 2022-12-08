@@ -33,21 +33,31 @@ graph_1_tab <- tabPanel(
 #    plotlyOutput("graph_1")
 )
 
-graph_2_tab <- tabPanel(
-    title = "Graph 2",
-#    plotlyOutput("graph_2")
-)
-
 graph_3_tab <- tabPanel(
     title = "Graph 3",
-#    plotlyOutput(plot_AQI_Category)
-    plotlyOutput("graph_3"),
-    sliderInput("timeRange",
+#    plotlyOutput("graph_3")
+)
+
+graph_2_tab <- tabPanel(
+    title = "Graph 2",
+    mainPanel(
+        sidebarLayout(
+            sidebarPanel(
+                sliderInput("timeRange",
                 label = h5("Select your time range"),
                 min = 2013,
                 max = 2021,
-                value = c(2013, 2021)),
-    hr()
+                value = c(2013, 2021),
+                sep = "")
+            ),
+            mainPanel(
+                plotlyOutput("graph_2"),
+                headerPanel(""),
+                HTML("<br><br><br><br><br><br><br>"),
+                p("The barplot plots the distribution of time of each city in that is categorized under each AQI category. The barplot is used to graphically demonstrate the ratio of time each city experienced with “unhealthy”or “healthy” air. On average, each city spends more than 50% of the time from 2013-2021 with what is considered hazardous air.")
+            ),
+        )
+    )
 )
 
 summary_tab <- tabPanel(
