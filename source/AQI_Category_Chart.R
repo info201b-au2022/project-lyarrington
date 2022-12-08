@@ -11,6 +11,10 @@ Guangzhou <- subset(Guangzhou, Site != 'Site')
 Beijing <- read.csv("data/Beijing_PM2.5_2013-2021.csv")
 Beijing <- subset(Beijing, Site != 'Site')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 243705a83a2fa7d8522301fe778a1cd2a46fd360
 generate_shanghai_data <- function(time1, time2) {
   Shanghai_modified <- Shanghai %>%
     filter(Year >= time1 & Year <= time2)
@@ -79,7 +83,10 @@ generate_guangzhou_data <- function(time1, time2) {
   return(Guangzhou_modified)
 }
 
+Shanghai <- subset(Shanghai, select = c(Year, Month, Day, AQI.Category))
+Shanghai_modified <- generate_shanghai_data(2013, 2021)
 
+<<<<<<< HEAD
 Shanghai <- subset(Shanghai, select = c(Year, Month, Day, AQI.Category))
 Shanghai_modified <- generate_shanghai_data(2013, 2021)
 
@@ -117,6 +124,34 @@ plot_AQI_Chart <- function(time1, time2) {
 
 
 
+=======
+Shenyang <- subset(Shenyang, select = c(Year, Month, Day, AQI.Category))
+Shenyang_modified <- generate_shenyang_data(2013, 2021)
+>>>>>>> 243705a83a2fa7d8522301fe778a1cd2a46fd360
 
 
+Beijing <- subset(Beijing, select = c(Year, Month, Day, AQI.Category))
+Beijing_modified <- generate_beijing_data(2013, 2021)
+  
+  
+Guangzhou <- subset(Guangzhou, select = c(Year, Month, Day, AQI.Category))
+Guangzhou_modified <- generate_guangzhou_data(2013, 2021)
 
+plot_AQI_Chart <- function(time1, time2) {
+  Beijing_modified <- generate_beijing_data(time1, time2)
+  Guangzhou_modified <- generate_guangzhou_data(time1, time2)
+  Shanghai_modified <- generate_shanghai_data(time1, time2)
+  Shenyang_modified <- generate_shenyang_data(time1, time2)
+  
+  City <- c(rep("Shanghai", 5), rep("Shenyang", 5), rep("Guangzhou", 5), rep("Beijing", 5))
+  Quality <- rep(c("Healthy", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy"), 4)
+  Percent <- c(Shanghai_modified, Shenyang_modified, Beijing_modified, Guangzhou_modified)
+  
+  my_chart <- data.frame(City, Quality, Percent)
+  plot <- ggplot(my_chart,
+            aes(y = Percent, x = City, fill = Quality)) +
+            geom_bar(position = "fill", stat = "identity") +
+            scale_fill_manual(values = c("dark green", "green", "yellow", "orange", "red"))
+  plotly <- p2 <- ggplotly(plot) %>% layout(height = 500, width = 700)
+  return(plotly)
+}
