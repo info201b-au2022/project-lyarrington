@@ -2,83 +2,117 @@ library(readr)
 library(dplyr)
 library(scales)
 library(ggplot2)
-Shanghai <- read.csv("../data/Shanghai_PM2.5_2013-2021.csv")
+Shanghai <- read.csv("data/Shanghai_PM2.5_2013-2021.csv")
 Shanghai <- subset(Shanghai, Site != 'Site')
-Shenyang <- read.csv("../data/Shenyang_PM2.5_2013-2021.csv")
+Shenyang <- read.csv("data/Shenyang_PM2.5_2013-2021.csv")
 Shenyang <- subset(Shenyang, Site != 'Site')
-Guangzhou <- read.csv("../data/Guangzhou_PM2.5_2013-2021.csv")
+Guangzhou <- read.csv("data/Guangzhou_PM2.5_2013-2021.csv")
 Guangzhou <- subset(Guangzhou, Site != 'Site')
-Beijing <- read.csv("../data/Beijing_PM2.5_2013-2021.csv")
+Beijing <- read.csv("data/Beijing_PM2.5_2013-2021.csv")
 Beijing <- subset(Beijing, Site != 'Site')
 
 
 Shanghai <- subset(Shanghai, select = c(Year, Month, Day, AQI.Category))
-
-Shanghai_Unhealthy <- sum(Shanghai$AQI.Category == "Unhealthy")
-Shanghai_Sensitive_Unhealthy <- sum(Shanghai$AQI.Category == "Unhealthy for Sensitive Groups")
-Shanghai_Very_Unhealthy <- sum(Shanghai$AQI.Category == "Very Unhealthy")
-Shanghai_Moderate <- sum(Shanghai$AQI.Category == "Moderate")
-Shanghai_Good <- sum(Shanghai$AQI.Category == "Good")
-
-Shanghai <- c("Good" = Shanghai_Good, "Moderate" = Shanghai_Moderate, 
-              "Unhealthy for Sensitive Groups" = Shanghai_Sensitive_Unhealthy, 
-              "Unhealthy" = Shanghai_Unhealthy, "Very Unhealthy" = Shanghai_Very_Unhealthy)
-Shanghai <- round(Shanghai/sum(Shanghai), digits=4)
-
+Shanghai_modified <- generate_shanghai_data(2013, 2021)
 
 Shenyang <- subset(Shenyang, select = c(Year, Month, Day, AQI.Category))
-
-Shenyang_Unhealthy <- sum(Shenyang$AQI.Category == "Unhealthy")
-Shenyang_Sensitive_Unhealthy <- sum(Shenyang$AQI.Category == "Unhealthy for Sensitive Groups")
-Shenyang_Very_Unhealthy <- sum(Shenyang$AQI.Category == "Very Unhealthy")
-Shenyang_Moderate <- sum(Shenyang$AQI.Category == "Moderate")
-Shenyang_Good <- sum(Shenyang$AQI.Category == "Good")
-
-Shenyang <- c("Good" = Shenyang_Good, "Moderate" = Shenyang_Moderate, 
-              "Unhealthy for Sensitive Groups" = Shenyang_Sensitive_Unhealthy, 
-              "Unhealthy" = Shenyang_Unhealthy, "Very Unhealthy" = Shenyang_Very_Unhealthy)
-Shenyang <- round(Shenyang/sum(Shenyang), digits=4)
+Shenyang_modified <- generate_shenyang_data(2013, 2021)
 
 
 Beijing <- subset(Beijing, select = c(Year, Month, Day, AQI.Category))
-
-Beijing_Unhealthy <- sum(Beijing$AQI.Category == "Unhealthy")
-Beijing_Sensitive_Unhealthy <- sum(Beijing$AQI.Category == "Unhealthy for Sensitive Groups")
-Beijing_Very_Unhealthy <- sum(Beijing$AQI.Category == "Very Unhealthy")
-Beijing_Moderate <- sum(Beijing$AQI.Category == "Moderate")
-Beijing_Good <- sum(Beijing$AQI.Category == "Good")
-
-Beijing <- c("Good" = Beijing_Good, "Moderate" = Beijing_Moderate, 
-              "Unhealthy for Sensitive Groups" = Beijing_Sensitive_Unhealthy, 
-              "Unhealthy" = Beijing_Unhealthy, "Very Unhealthy" = Beijing_Very_Unhealthy)  
-Beijing <- round(Beijing/sum(Beijing), digits=4)  
+Beijing_modified <- generate_beijing_data(2013, 2021)
   
   
 Guangzhou <- subset(Guangzhou, select = c(Year, Month, Day, AQI.Category))
+Guangzhou_modified <- generate_guangzhou_data(2013, 2021)
 
-Guangzhou_Unhealthy <- sum(Guangzhou$AQI.Category == "Unhealthy")
-Guangzhou_Sensitive_Unhealthy <- sum(Guangzhou$AQI.Category == "Unhealthy for Sensitive Groups")
-Guangzhou_Very_Unhealthy <- sum(Guangzhou$AQI.Category == "Very Unhealthy")
-Guangzhou_Moderate <- sum(Guangzhou$AQI.Category == "Moderate")
-Guangzhou_Good <- sum(Guangzhou$AQI.Category == "Good")
-
-Guangzhou <- c("Good" = Guangzhou_Good, "Moderate" = Guangzhou_Moderate, 
-             "Unhealthy for Sensitive Groups" = Guangzhou_Sensitive_Unhealthy, 
-             "Unhealthy" = Guangzhou_Unhealthy, "Very Unhealthy" = Guangzhou_Very_Unhealthy)  
-Guangzhou <- round(Guangzhou/sum(Guangzhou), digits=4)
- 
-
-
-City <- c(rep("Shanghai", 5), rep("Shenyang", 5), rep("Guangzhou", 5), rep("Beijing", 5))
-Quality <- rep(c("Healthy", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy"), 4)
-Percent <- c(Shanghai, Shenyang, Beijing, Guangzhou)
+plot_AQI_Chart <- function(time1, time2) {
+  Beijing_modified <- generate_beijing_data(time1, time2)
+  Guangzhou_modified <- generate_guangzhou_data(time1, time2)
+  Shanghai_modified <- generate_shanghai_data(time1, time2)
+  Shenyang_modified <- generate_shenyang_data(time1, time2)
   
-my_chart <- data.frame(City, Quality, Percent)
+  City <- c(rep("Shanghai", 5), rep("Shenyang", 5), rep("Guangzhou", 5), rep("Beijing", 5))
+  Quality <- rep(c("Healthy", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy"), 4)
+  Percent <- c(Shanghai_modified, Shenyang_modified, Beijing_modified, Guangzhou_modified)
+  
+  my_chart <- data.frame(City, Quality, Percent)
+  plot <- ggplot(my_chart,
+            aes(y = Percent, x = City, fill = Quality)) +
+            geom_bar(position = "fill", stat = "identity") +
+            scale_fill_manual(values = c("dark green", "green", "yellow", "orange", "red"))
+  return(plot)
+}
 
-ggplot(my_chart,
-  aes(y = Percent, x = City, fill = Quality)) +
-  geom_bar(position = "fill", stat = "identity") +
-  scale_fill_manual(values = c("dark green", "green", "yellow", "orange", "red"))
+generate_shanghai_data <- function(time1, time2) {
+  Shanghai_modified <- Shanghai %>%
+    filter(Year >= time1 & Year <= time2)
+  Shanghai_modified <- c("Good" = 
+                           sum(Shanghai_modified$AQI.Category == "Good"),
+                         "Moderate" = 
+                           sum(Shanghai_modified$AQI.Category == "Moderate"),
+                         "Unhealthy for Sensitive Groups" = 
+                           sum(Shanghai$AQI.Category == "Unhealthy for Sensitive Groups"),
+                         "Unhealthy" = 
+                           sum(Shanghai_modified$AQI.Category == "Unhealthy"),
+                         "Very Unhealthy" = 
+                           sum(Shanghai_modified$AQI.Category == "Very Unhealthy"))
+  Shanghai_modified <- round(Shanghai_modified/sum(Shanghai_modified), digits=4)
+  return(Shanghai_modified)
+}
+
+generate_shenyang_data <- function(time1, time2) {
+  Shenyang_modified <- Shenyang %>%
+    filter(Year >= time1 & Year <= time2)
+  Shenyang_modified <- c("Good" = 
+                           sum(Shenyang_modified$AQI.Category == "Good"), 
+                         "Moderate" = 
+                           sum(Shenyang_modified$AQI.Category == "Moderate"), 
+                         "Unhealthy for Sensitive Groups" = 
+                           sum(Shenyang_modified$AQI.Category == "Unhealthy for Sensitive Groups"), 
+                         "Unhealthy" = 
+                           sum(Shenyang_modified$AQI.Category == "Unhealthy"), 
+                         "Very Unhealthy" = 
+                           sum(Shenyang_modified$AQI.Category == "Very Unhealthy"))
+  Shenyang_modified <- round(Shenyang_modified/sum(Shenyang_modified), digits=4)
+  return(Shenyang_modified)
+}
+
+generate_beijing_data <- function(time1, time2) {
+  Beijing_modified <- Beijing %>%
+    filter(Year >= time1 & Year <= time2)
+  Beijing_modified <- c("Good" = 
+                          sum(Beijing_modified$AQI.Category == "Good"), 
+                        "Moderate" = 
+                          sum(Beijing_modified$AQI.Category == "Moderate"), 
+                        "Unhealthy for Sensitive Groups" = 
+                          sum(Beijing_modified$AQI.Category == "Unhealthy for Sensitive Groups"), 
+                        "Unhealthy" = 
+                          sum(Beijing_modified$AQI.Category == "Unhealthy"), 
+                        "Very Unhealthy" = 
+                          sum(Beijing_modified$AQI.Category == "Very Unhealthy"))  
+  Beijing_modified <- round(Beijing_modified/sum(Beijing_modified), digits=4)
+  return(Beijing_modified)
+}
+
+generate_guangzhou_data <- function(time1, time2) {
+  Guangzhou_modified <- Guangzhou %>%
+    filter(Year >= time1 & Year <= time2)
+  Guangzhou_modified <- c("Good" = 
+                            sum(Guangzhou_modified$AQI.Category == "Good"), 
+                          "Moderate" = 
+                            sum(Guangzhou_modified$AQI.Category == "Moderate"), 
+                          "Unhealthy for Sensitive Groups" = 
+                            sum(Guangzhou_modified$AQI.Category == "Unhealthy for Sensitive Groups"), 
+                          "Unhealthy" = 
+                            sum(Guangzhou_modified$AQI.Category == "Unhealthy"), 
+                          "Very Unhealthy" = 
+                            sum(Guangzhou_modified$AQI.Category == "Very Unhealthy"))  
+  Guangzhou_modified <- round(Guangzhou_modified/sum(Guangzhou_modified), digits=4)
+  return(Guangzhou_modified)
+}
+
+
 
 
 
